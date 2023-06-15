@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const PopularClass = () => {
     const [classes, setClasses] = useState([]);
-    let topClasses = [];
+    
     useEffect(() => {
         fetch('classes.json')
             .then(res => res.json())

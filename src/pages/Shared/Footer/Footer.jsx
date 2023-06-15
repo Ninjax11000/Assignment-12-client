@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <footer>
+        <footer className='mt-8'>
             <div className="footer p-10 bg-base-200 text-base-content">
                 <div>
                    <img className='w-[80px] h-[80px]' src="pngwing.com.png" alt="" />
