@@ -1,12 +1,14 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import Navbar from '../pages/Shared/Navbar/Navbar';
+import Footer from '../pages/Shared/Footer/Footer';
 
 const Main = () => {
     return (
         <div>
-            <h2 className='text-orange-600'>Header coming</h2>
+            <Navbar></Navbar>
             <Outlet></Outlet>
-            <h2>footer cooming!</h2>
+            <Footer></Footer>
         </div>
     );
 };
