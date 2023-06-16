@@ -2,6 +2,7 @@ import React from 'react';
 import Banner from '../Banner/Banner';
 import PopularClass from '../PopularClass/PopularClass';
 import PopularInstructor from '../PopularInstructor/PopularInstructor';
+import FeedBack from '../FeedBack/FeedBack';
 
 const Home = () => {
     return (
@@ -10,6 +11,7 @@ const Home = () => {
            <Banner></Banner>
            <PopularClass></PopularClass>
            <PopularInstructor></PopularInstructor>
+           <FeedBack></FeedBack>
         </div>
     );
 };
