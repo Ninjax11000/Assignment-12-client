@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [visible, setVisible]=useState(false);
-    const handleLogin = event=>{
-        event.preventDefault();
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email,password);
+    const handleLogin = data=>{
+       console.log(data);
     }
     const setpassVisible =()=>{
         setVisible(!visible);
@@ -21,18 +19,19 @@ const Login = () => {
                    
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                    <form onSubmit={handleLogin} className="card-body">
+                    <form onSubmit={handleSubmit(handleLogin)} className="card-body">
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" name='email' placeholder="email" className="input input-bordered" required/>
+                            <input type="email" {...register("email", { required: true })} name='email' placeholder="email" className="input input-bordered"/>
+                            {errors.email && <span className='text-red-600'>Email is required</span>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type={visible? "text":"password"} name='password' placeholder="password" className="input input-bordered" required />
+                            <input type={visible? "text":"password"} {...register("password", { required: true })} name='password' placeholder="password" className="input input-bordered"  />
                             <i onClick={setpassVisible}>
                             {visible ? 'Hide' : 'Show'} Password</i>
                           
