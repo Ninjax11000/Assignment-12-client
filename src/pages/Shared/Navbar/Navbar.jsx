@@ -20,7 +20,7 @@ const Navbar = () => {
                        
                         <li><Link to='/instructors'>Instructors</Link></li>
                         <li><Link to='/classes'>Classes</Link></li>
-                        <li><Link to='/dashboard'>Dashboard</Link></li>
+                        {user? <li><Link to='/dashboard'>Dashboard</Link></li>:<></>}
                       
                     </ul>
                 </div>
@@ -39,11 +39,12 @@ const Navbar = () => {
                        
                        <li><Link to='/instructors'>Instructors</Link></li>
                        <li><Link to='/classes'>Classes</Link></li>
-                       <li><Link to='/dashboard'>Dashboard</Link></li>
+                       {user? <li><Link to='/dashboard'>Dashboard</Link></li>:<></>}
                        
                 </ul>
             </div>
             <div className="navbar-end">
+                {user? <><img className='h-[50px] w-[50px] rounded-full mx-3' src={user.photoURL} alt="" /></>:<></> }
                 {user? <button onClick={handleLogout} className='btn btn-primary'>Logout</button>:
                 <Link to='/login' className="btn btn-warning">Login</Link>
                 }
