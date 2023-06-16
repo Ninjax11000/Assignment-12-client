@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProviders';
 
 const Login = () => {
+    const { signIn, googleSignIn } = useContext(AuthContext);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [visible, setVisible]=useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
+
     const handleLogin = data=>{
-       console.log(data);
+       console.log(data.email, data.password);
+       signIn(data.email,data.password)
+       .then(result=>{
+        const loggedUser = result.user;
+        console.log(user);
+       })
     }
     const setpassVisible =()=>{
         setVisible(!visible);
