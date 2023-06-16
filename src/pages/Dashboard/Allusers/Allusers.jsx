@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { FaTrashAlt, FaUserCheck, FaUserShield } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const Allusers = () => {
     const [allusers, setAllUsers] = useState([]);
+    const navigate = useNavigate();
     
     useEffect(() => {
         fetch('http://localhost:5000/allusers')
@@ -14,7 +17,46 @@ const Allusers = () => {
                 
 
             });
-    }, [])
+    }, [allusers]);
+    const handleMakeAdmin = user =>{
+        fetch(`http://localhost:5000/allusers/admin/${user._id}`, {
+            method: 'PATCH'
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.modifiedCount){
+               alert('updated');
+               navigate('/dashboard/allusers');
+            }
+        })
+    }
+    const handleMakeInstructor = user =>{
+        fetch(`http://localhost:5000/allusers/instructor/${user._id}`, {
+            method: 'PATCH'
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.modifiedCount){
+               alert('updated');
+               navigate('/dashboard/allusers');
+            }
+        })
+    }
+    const handleDelete = user => {
+        fetch(`http://localhost:5000/allusers/${user._id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    alert('updated');
+               navigate('/dashboard/allusers');
+                }
+            })
+    }
+
     return (
         <div className="w-full">
            
@@ -27,8 +69,8 @@ const Allusers = () => {
                             <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Role1</th>
-                            <th>Role2</th>
+                            <th>Make Admin</th>
+                            <th>Make Instructor</th>
                             <th>Action</th>
                         </tr>
                     </thead>
