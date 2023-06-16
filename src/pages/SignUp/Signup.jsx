@@ -1,15 +1,32 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProviders';
 
 const Signup = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const {createUser,updateUserProfile}=useContext(AuthContext);
+    const navigate = useNavigate();
     const [visible, setVisible] = useState(false);
 
 
 
     const handleSignUp = data => {
        console.log(data);
+       if(data.password=== data.cpassword){
+       
+        createUser(data.email, data.password)
+        .then(result=>{
+         const loggedUser =result.user;
+             console.log(loggedUser);
+             updateUserProfile(data.name, data.photoURL);
+             navigate('/');
+        })
+       }
+       else{
+        alert('passwords do not match!')
+       }
+      
     }
     const setpassVisible = () => {
         setVisible(!visible);
@@ -64,15 +81,15 @@ const Signup = () => {
                                 <span className="label-text">Confirm Password</span>
                             </label>
                             <input type="text" {...register("cpassword", { required: true })} name='cpassword' placeholder="password" className="input input-bordered"  />
-                            {errors.password?.type === 'required' && <p className='text-red-600'> Comfirm Password is required</p>}
+                            {errors.password?.type === 'required' && <p className='text-red-600'> Confirm Password is required</p>}
                         </div>
                         <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Photo</span>
-                            </label>
-                            <input type="text" {...register("photoURL", { required: true })} name='photo' placeholder="Photo Url" className="input input-bordered" />
-                            {errors.photoURL && <span className='text-red-600'>Photo URL is required</span>}
-                        </div>
+                                <label className="label">
+                                    <span className="label-text">Photo</span>
+                                </label>
+                                <input type="text" {...register("photoURL", { required: true })}  placeholder="Photo" className="input input-bordered" />
+                                {errors.photoURL && <span className='text-red-600'>Photo URL is required</span>}
+                            </div>
                         <div className="form-control mt-6">
 
                             <input className="btn btn-primary" type="submit" value="Sign Up" />
